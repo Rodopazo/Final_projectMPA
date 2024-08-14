@@ -1,0 +1,37 @@
+{% extends "myapp1/base.html" %}
+
+{% load static %}
+
+{% block title %}Mentores{% endblock %}
+
+{% block content %}
+<div class="container d-flex flex-column justify-content-center" style="min-height: 80vh;">
+    <div class="text-center mb-4">
+        <img src="{% static 'myapp1/assets/img/ari3.jpg' %}" alt="Descripción de la imagen"
+            class="img-fluid rounded shadow-lg" />
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <h1 class="my-4 text-center">Lista de Mentores</h1>
+            <div class="text-center mb-4">
+                <a class="btn btn-primary btn-lg" href="{% url 'mentor_create' %}">Crear Nuevo Mentor</a>
+            </div>
+            <div class="list-group shadow-sm">
+                {% for mentor in mentores %}
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                    <a href="{% url 'mentor_detail' mentor.pk %}" class="font-weight-bold text-dark">Mentor:
+                        {{mentor.nombre }}
+                    </a>
+                    <div>
+                        <a class="btn btn-warning btn-sm mx-1" href="{% url 'mentor_update' mentor.pk %}">Editar</a>
+                        <a class="btn btn-danger btn-sm" href="{% url 'mentor_delete' mentor.pk %}">Eliminar</a>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="list-group-item text-center text-muted">No hay mentores disponibles.</div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
